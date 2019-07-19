@@ -43,7 +43,7 @@ def files_from_folder(path, extension):
         for some_file in some_files:
             files.append(os.path.join(root, some_file))
     print('Getting image files at {}'.format(path))
-    files = _keep_extensions(files, IMAGE_EXTENSIONS)
+    files = _keep_extensions(files, extension)#IMAGE_EXTENSIONS)
     files = list(map(os.path.abspath, files))
     files = sorted(files)  # warning: '/asd/11.png' > '/asd/5.png' and several cases
 

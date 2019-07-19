@@ -96,8 +96,8 @@ def inference_folder(graph, folder_path, json_out_path, show, out_folder=None, t
 
 
 def image_inference(graph, image_path, json_out_path, show, out_folder=None, threshold=.5):
-    if out_folder is not None:
-        raise NotImplementedError('image out folder not implemented')
+    #if out_folder is not None:
+    #    raise NotImplementedError('image out folder not implemented')
 
     image = cv2.imread(image_path)
     image = cv2.resize(image, (constants.WIDTH, constants.HEIGHT))
