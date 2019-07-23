@@ -101,12 +101,12 @@ def evaluate(labels, results, json_output_path, class_agnostic=False):
             detected_scores=numpy.array(result['detection_scores']),
             detected_class_labels=numpy.array(result['detection_classes']))
 
-    eval_dict = vars(evaluator.evaluate())
+    eval_dict = evaluator.evaluate()
 
     output_dict = {}
-    output_dict['weighted_mean_ap'] = eval_dict['mean_ap']
+    output_dict['weighted_mean_ap'] = eval_dict.mean_ap
     filtered_aps = list(filter(lambda x: not numpy.isnan(x),
-                               eval_dict['average_precisions']))
+                               eval_dict.average_precisions))
     output_dict['mean_ap'] = sum(filtered_aps) / len(filtered_aps)
     output_dict['mean_aps'] = filtered_aps
     output_dict['num_classes'] = len(filtered_aps)
@@ -115,9 +115,10 @@ def evaluate(labels, results, json_output_path, class_agnostic=False):
     output_dict['precisions'] = {}
     for cindex in range(len(filtered_aps)):
         class_name = constants.EVAL_CATEGORIES[cindex]
-        output_dict['recalls'][class_name] = list(eval_dict['recalls'][cindex])
-        output_dict['precisions'][class_name] = list(eval_dict['precisions'][cindex])
+        output_dict['recalls'][class_name] = list(eval_dict.recalls[cindex])
+        output_dict['precisions'][class_name] = list(eval_dict.precisions[cindex])
 
     with open(json_output_path, 'w') as json_handle:
         json.dump(output_dict, json_handle)
     precision_recall_figure(output_dict['precisions'], output_dict['recalls'], json_output_path)
+    return output_dict
