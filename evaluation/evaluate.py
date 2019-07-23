@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 
 from object_detection.utils.object_detection_evaluation import ObjectDetectionEvaluation
 
-from .tf_object_detection import constants
+from ..tf_object_detection import constants
 
 
 def precision_recall_figure(precisions, recalls, json_out_path, show=True):
